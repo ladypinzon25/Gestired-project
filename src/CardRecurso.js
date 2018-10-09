@@ -11,22 +11,44 @@ import Button from '@material-ui/core/Button';
 
 
 export default class CardRecurso extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      icon:'/movies.ico'
+    };
+
+    this.selectIcon = this.selectIcon.bind(this);
+  }
+
+  selectIcon(){
+    if(this.props.recurso.tipoRecurso.includes('nfo')){
+      return '/info.png';
+    }
+    else if (this.props.recurso.tipoRecurso.includes('WEB')){
+      return '/web.png';      
+    }
+    else if (this.props.recurso.tipoRecurso.includes('ideo')){
+      return '/filevideo.png';      
+    }
+  }
+
   render() {
     return (
       <div>
         <Card className='card'>
           <CardHeader
-            title={this.props.title}
-            subheader={this.props.date}
+            title={this.props.recurso.nombre}
+            subheader={this.props.recurso.fechaRegistro}
           />
           <CardMedia className='media'
-            image='/movies.ico'
+            image={this.selectIcon()}
           />
           <CardContent>
-            <p>{this.props.type}</p>
+            <p>{this.props.recurso.tipoRecurso}</p>
           </CardContent>
           <CardActions className='actions'>
-            <Button>Ver recurso</Button>
+            <Button href={this.props.recurso.url}>Ver recurso</Button>
           </CardActions>
         </Card>
       </div>

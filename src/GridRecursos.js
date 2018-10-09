@@ -8,33 +8,22 @@ class GridRecursos extends Component {
   constructor(props){
     super(props);
 
-    this.state={
-      projects: null
-    };
-
-    
   }
 
   componentDidMount(){
-    fetch(urlBase+'gestired/project/')
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => this.setState({projects:json.objects}))
-      .catch((err) => console.log(err));
+    
   }
 
   render() {
-    console.log(this.state.projects);
-    if(this.state.projects!=null)
+    if(this.props.resources!=null)
     {
       return (
         <Grid container className='root' spacing={16}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={16}>
-              {this.state.projects.map(value => (
-                <Grid key={value.name} item>
-                  <CardRecurso title={value.name} date={value.fechaRegistro} type={'Proyecto'}/>
+              {this.props.resources.map(value => (
+                <Grid key={value.id} item>
+                  <CardRecurso recurso={value}/>
                 </Grid>
               ))}
             </Grid>
