@@ -20,13 +20,9 @@ export default class ProjectCard extends Component {
     // this.selectIcon = this.selectIcon.bind(this);
   }
   state = {
-    showResources: false
+    showResources: false,
+    id: this.props.project
   };
-  onClickProject =() => {
-    this.props.viewProject(true);
-    console.log("entre al onclick")
-  };
-
   // selectIcon(){
   //   if(this.props.recurso.tipoRecurso.includes('nfo')){
   //     return '/info.png';
@@ -56,7 +52,7 @@ export default class ProjectCard extends Component {
             <p>{this.props.project.etiquetas}</p>
           </CardContent>
           <CardActions className='actions'>
-            <Button onClick={this.onClickProject}>Ver proyecto</Button>
+            <Button onClick={(id)=>this.props.viewProject(this.state.id)}>Ver proyecto</Button>
           </CardActions>
         </Card>
       </div>

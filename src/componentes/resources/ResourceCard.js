@@ -14,41 +14,42 @@ export default class ResourceCard extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      icon:'/movies.ico'
-    };
-
-    this.selectIcon = this.selectIcon.bind(this);
+    // this.state = {
+    //   icon:'/movies.ico'
+    // };
+    //
+    // this.selectIcon = this.selectIcon.bind(this);
   }
-
-  selectIcon(){
-    if(this.props.recurso.tipoRecurso.includes('nfo')){
-      return '/info.png';
-    }
-    else if (this.props.recurso.tipoRecurso.includes('WEB')){
-      return '/web.png';      
-    }
-    else if (this.props.recurso.tipoRecurso.includes('ideo')){
-      return '/filevideo.png';      
-    }
-  }
+  //
+  // selectIcon(){
+  //   if(this.props.recurso.tipoRecurso.includes('nfo')){
+  //     return '/info.png';
+  //   }
+  //   else if (this.props.recurso.tipoRecurso.includes('WEB')){
+  //     return '/web.png';
+  //   }
+  //   else if (this.props.recurso.tipoRecurso.includes('ideo')){
+  //     return '/filevideo.png';
+  //   }
+  // }
 
   render() {
     return (
       <div>
+        {console.log("entro a recurso card"+ this.props.resource.nombre)}
         <Card className='card'>
           <CardHeader
-            title={this.props.recurso.nombre}
-            subheader={this.props.recurso.fechaRegistro}
+            title={this.props.resource.nombre}
+            subheader={this.props.resource.fechaRegistro}
           />
-          <CardMedia className='media'
-            image={this.selectIcon()}
-          />
+          {/*<CardMedia className='media'*/}
+            {/*image={this.selectIcon()}*/}
+          {/*/>*/}
           <CardContent>
-            <p>{this.props.recurso.tipoRecurso}</p>
+            <p>{this.props.resource.tipoRecurso}</p>
           </CardContent>
           <CardActions className='actions'>
-            <Button href={this.props.recurso.url}>Ver recurso</Button>
+            <Button href={this.props.resource.url}>Ver recurso</Button>
           </CardActions>
         </Card>
       </div>
