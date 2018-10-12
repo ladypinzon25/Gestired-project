@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './CardRecurso.css';
+import './ResourceCard.css';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 
 
-export default class CardRecurso extends Component {
+export default class ResourceCard extends Component {
   constructor(props){
     super(props);
 

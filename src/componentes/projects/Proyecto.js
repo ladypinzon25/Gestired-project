@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import GridRecursos from './GridRecursos';
+import ResourcesGrid from '../resources/ResourcesGrid';
+import ProjectsAPI from '../api/ProjectsAPI'
 
 const urlBase = 'http://127.0.0.1:8000/';
 
@@ -14,12 +15,9 @@ class Proyecto extends Component {
 
 
   componentDidMount(){
-    fetch(urlBase+`gestired/project/${this.props.id}/`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => this.setState({project:json}))
-      .catch((err) => console.log(err));
+      ProjectsAPI.getAllProjects((response) => {
+        this.setState({})
+      });
   }
   
   render() {
@@ -27,13 +25,16 @@ class Proyecto extends Component {
     {
       return (
         <div>
+          {console.log("entro a que si existe proyecto")}
           <h1>Proyecto {this.state.project.id}</h1>
-          <GridRecursos resources={this.state.project.resources}/>
+          <ResourcesGrid resources={this.state.project.resources}/>
         </div>
       );
     }
     else{
-      return(<div></div>);
+      return(<div>
+        {console.log("entro a que NO existe proyecto")}
+      </div>);
     }
   }
 }

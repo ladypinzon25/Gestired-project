@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import CardRecurso from './CardRecurso';
+import ResourceCard from './ResourceCard';
 import Grid from '@material-ui/core/Grid';
 
 const urlBase = 'http://127.0.0.1:8000/';
 
-class GridRecursos extends Component {
+class ResourcesGrid extends Component {
   constructor(props){
     super(props);
 
@@ -23,7 +23,7 @@ class GridRecursos extends Component {
             <Grid container justify="center" spacing={16}>
               {this.props.resources.map(value => (
                 <Grid key={value.id} item>
-                  <CardRecurso recurso={value}/>
+                  <ResourceCard recurso={value}/>
                 </Grid>
               ))}
             </Grid>
@@ -37,4 +37,4 @@ class GridRecursos extends Component {
   }
 }
 
-export default GridRecursos;
+export default ResourcesGrid;
