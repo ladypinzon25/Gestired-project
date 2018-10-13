@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
-import ProjectsAPI from '../api/ProjectsAPI'
 import './Home.css'
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import Project from '../projects/Proyecto';
-import ProjectCard from "../projects/ProjectCard";
-import ResourceCard from "../resources/ResourceCard";
 import Options from "../home/Options";
 import InformationPanel from "../home/InformationPanel";
 
@@ -21,25 +16,47 @@ class Home extends Component {
     resourcesByTimeline: false,
     actualOption: "",
     currentProject: null,
-    options: ["Todos los proyectos", "Mis proyectos"]
+    currentResource: null,
+    labelProjects: [],
+    labelResources: [],
+    labelSearch: false,
+    options: ["Todos los proyectos"]
   };
 
-  viewProject = (id) => {
-    console.log("entro a ver proyecto ohhh" + id.name)
+  viewProject = (project) => {
+    console.log("entro a ver proyecto ohhh" + project.name)
     this.setState({
       seeProjects: false,
       seeResources: true,
-      currentProject: id,
+      seeInfoResource: false,
+      currentProject: project,
     })
 
   };
-  viewResource = () => {
+
+  viewResource = (resource) => {
     this.setState({
       seeInfoResource: true,
+      currentResource: resource,
+      seeProjects: false,
+      seeResources: false,
     })
   };
+
+  showLabelSearch = (resources, projects) => {
+    this.setState({
+      labelSearch: true,
+      seeInfoResource: false,
+      seeProjects: false,
+      seeResources: false,
+      labelProjects: resources,
+      labelResources: projects,
+    })
+  };
+
   showOption = (option) => {
-    if (option === "Todos los proyectos") {
+    console.log("aquiii que es option: ", option);
+    if (option.toString() === "Todos los proyectos") {
       this.setState({
         seeProjects: true,
         showMyProjects: false,
@@ -48,7 +65,7 @@ class Home extends Component {
         resourcesByTimeline: false,
       })
     }
-    else if (option === "Mis proyectos") {
+    else if (option.toString() === "Mis proyectos") {
       this.setState({
         showMyProjects: true,
         seeProjects: false,
@@ -57,7 +74,7 @@ class Home extends Component {
         resourcesByTimeline: false,
       })
     }
-    else if (option === "Todos los recursos") {
+    else if (option.toString() === "Todos los recursos") {
       this.setState({
         seeResources: true,
         showMyProjects: false,
@@ -66,7 +83,7 @@ class Home extends Component {
         resourcesByTimeline: false,
       })
     }
-    else if (option === "Recursos por etiquetas") {
+    else if (option.toString() === "Recursos por etiquetas") {
       this.setState({
         resourcesByLabel: true,
         showMyProjects: false,
@@ -75,7 +92,7 @@ class Home extends Component {
         resourcesByTimeline: false,
       })
     }
-    else if (option === "Recursos por linea de tiempo") {
+    else if (option.toString() === "Recursos por linea de tiempo") {
       this.setState({
         resourcesByTimeline: true,
         showMyProjects: false,
@@ -92,10 +109,6 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
-        {/*{this.state.projects!=null ? this.state.projects.map(p =>*/}
-        {/*(<div>*/}
-        {/*{p.etiquetas}*/}
-        {/*</div>)): ""}*/}
         <div className="home__bar">
           <div className="home__bar-title">Gestired</div>
           <div className="home__data-container">
@@ -105,13 +118,31 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <Options showOption={this.showOption} options={this.state.options}/>
+        <Options showOption={this.showOption} options={this.state.options} showLabelSearch={this.showLabelSearch}/>
         <Card className="home__information-card">
           <div className="home__navigation-info">
-            Proyectos
+            {this.state.seeProjects ? "Proyectos" : (this.state.seeResources ? ("Recursos del proyecto "+ this.state.currentProject.name) :
+              (this.state.seeInfoResource ? ("Recurso de "+ this.state.currentResource.nombre): "Resultado de la búsqueda"))}
           </div>
-          {this.state.seeProjects? <InformationPanel content="projects" viewProject={this.viewProject} currentProject={this.state.currentProject}/>:
-            <InformationPanel content="resources" viewResources={this.viewResource} currentProject={this.state.currentProject}/>}
+          {this.state.seeProjects ? <InformationPanel content="projects" viewProject={this.viewProject}
+                                                      currentProject={this.state.currentProject}
+                                                      currentResource={this.state.currentResource}/>
+            : (
+              this.state.seeResources ? <InformationPanel content="resources" viewResource={this.viewResource}
+                                                          currentProject={this.state.currentProject}
+                                                          currentResource={this.state.currentResource}/>
+                :
+                (this.state.seeInfoResource ? <InformationPanel content="oneResource" viewResource={this.viewResource}
+                                                                currentProject={this.state.currentProject}
+                                                                currentResource={this.state.currentResource}/>
+                    : <InformationPanel content="labels" viewResource={this.viewResource}
+                                        currentProject={this.state.currentProject}
+                                        currentResource={this.state.currentResource}
+                                        labelResourcesFound={this.state.labelResources}
+                                        labelProjectsFound={this.state.labelProjects}/>
+
+                )
+            )}
         </Card>
       </div>);
 

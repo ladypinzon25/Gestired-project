@@ -13,3 +13,6 @@
   color: rgb(66, 66, 66)!important;
   margin-bottom: 15px!important;
 }
+.home__text-field {
+  width: 200px;
+}

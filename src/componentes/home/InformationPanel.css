@@ -2,4 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  height: 400px;
+  overflow-y: scroll;
+  position: relative;
+}
+.information-panel__label-search {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top:0;
+
 }

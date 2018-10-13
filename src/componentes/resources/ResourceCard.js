@@ -1,55 +1,45 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import './ResourceCard.css';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
-
-
 export default class ResourceCard extends Component {
-  constructor(props){
-    super(props);
-
-    // this.state = {
-    //   icon:'/movies.ico'
-    // };
-    //
-    // this.selectIcon = this.selectIcon.bind(this);
-  }
-  //
-  // selectIcon(){
-  //   if(this.props.recurso.tipoRecurso.includes('nfo')){
-  //     return '/info.png';
-  //   }
-  //   else if (this.props.recurso.tipoRecurso.includes('WEB')){
-  //     return '/web.png';
-  //   }
-  //   else if (this.props.recurso.tipoRecurso.includes('ideo')){
-  //     return '/filevideo.png';
-  //   }
-  // }
+  selectIcon =()=>{
+    if(this.props.resource!=null &&this.props.resource.tipoRecurso!=null) {
+      if (this.props.resource.tipoRecurso.includes('nfo')) {
+        return '/info.png';
+      }
+      else if (this.props.resource.tipoRecurso.includes('WEB')) {
+        return '/web.png';
+      }
+      else if (this.props.resource.tipoRecurso.includes('ideo')) {
+        return '/filevideo.png';
+      }
+      else {
+        return '/any.png';
+      }
+    } else {
+      return '/any.png';
+    }
+  };
 
   render() {
     return (
       <div>
-        {console.log("entro a recurso card"+ this.props.resource.nombre)}
         <Card className='card'>
           <CardHeader
-            title={this.props.resource.nombre}
+            title={this.props.resource.nombre || this.props.resource.name}
             subheader={this.props.resource.fechaRegistro}
+            className="resource-card__title"
           />
-          {/*<CardMedia className='media'*/}
-            {/*image={this.selectIcon()}*/}
-          {/*/>*/}
-          <CardContent>
+          <img src={this.selectIcon()} className="resource-card__image"
+          />
             <p>{this.props.resource.tipoRecurso}</p>
-          </CardContent>
+
           <CardActions className='actions'>
-            <Button href={this.props.resource.url}>Ver recurso</Button>
+            <Button  variant="outlined" onClick={(resource)=>this.props.viewResource(this.props.resource)} >Ver recurso</Button>
           </CardActions>
         </Card>
       </div>

@@ -1,14 +1,19 @@
 .card {
-  width: 300px;
-  height: 400px;
+  width: 250px;
+  height: 350px;
+  position: relative;
 }
 
-.media {
-  height: 0;
-  padding-top: 56.25%;
-  background-size: contain;
-}
 
 .actions {
-  display: 'flex';
+  display: flex;
+}
+
+.resource-card__image {
+  width: 100px;
+  height: 100px;
+}
+.resource-card__title {
+  position: absolute;
+  top:0;
 }

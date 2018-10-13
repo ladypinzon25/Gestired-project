@@ -40,7 +40,7 @@ export default class ProjectCard extends Component {
       <div>
         <Card className='card'>
           <CardHeader
-            title={this.props.project.name}
+            title={this.props.project.nombre || this.props.project.name}
             subheader={this.props.project.fechaRegistro}
             className="project-card__title"
           />
@@ -52,7 +52,7 @@ export default class ProjectCard extends Component {
             <p>{this.props.project.etiquetas}</p>
           </CardContent>
           <CardActions className='actions'>
-            <Button onClick={(id)=>this.props.viewProject(this.state.id)}>Ver proyecto</Button>
+            <Button  variant="outlined" onClick={(id)=>this.props.viewProject(this.state.id)}>Ver proyecto</Button>
           </CardActions>
         </Card>
       </div>
